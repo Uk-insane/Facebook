@@ -1,19 +1,30 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 
 app = Flask(__name__)
+app.secret_key = "dev-secret-key"  # change for production (only demo)
 
-@app.route('/', methods=['GET', 'POST'])
+# Dummy credentials for simulation only
+DUMMY_USER = {
+    "email": "demo@example.com",
+    "password": "password123"
+}
+
+@app.route("/", methods=["GET"])
+def index():
+    return render_template("login.html")
+
+@app.route("/login", methods=["POST"])
 def login():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        print(f"Login attempt:\nEmail: {email}\nPassword: {password}")
-        return redirect(url_for('success'))
-    return render_template('login.html')
+    email = request.form.get("email", "").strip()
+    password = request.form.get("password", "")
 
-@app.route('/success')
-def success():
-    return "<h2>Login Submitted (Demo Page)</h2>"
+    # Simulation: check against dummy credentials only (no storage / no logging)
+    if email.lower() == DUMMY_USER["email"] and password == DUMMY_USER["password"]:
+        # simulated success
+        return render_template("success.html", email=email)
+    else:
+        flash("Login failed — this is a demo. Use demo@example.com / password123", "error")
+        return redirect(url_for("index"))
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
