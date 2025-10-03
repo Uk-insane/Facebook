@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Welcome — Demo</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <canvas id="bg"></canvas>
+
+  <div class="card success">
+    <h1>Welcome</h1>
+    <p>You signed in as <strong>{{ email }}</strong></p>
+    <p class="note">This was a simulated login for demo purposes only.</p>
+    <a href="{{ url_for('index') }}" class="btn">Sign out</a>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/animation.js') }}"></script>
+</body>
+</html>
