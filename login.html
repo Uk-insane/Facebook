@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Social Login Demo</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <canvas id="bg"></canvas>
+
+  <div class="card">
+    <h1 class="brand">Social Login — Demo</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash">
+          {% for category, msg in messages %}
+            <div class="msg {{ category }}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('login') }}" method="post" class="login-form">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="demo@example.com" required>
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" placeholder="password123" required>
+
+      <button type="submit" class="btn">Sign In (Demo)</button>
+    </form>
+
+    <p class="note">This is a UI/demo only — no credentials are stored. Use <b>demo@example.com</b> / <b>password123</b>.</p>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/animation.js') }}"></script>
+</body>
+</html>
